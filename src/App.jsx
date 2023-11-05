@@ -5,26 +5,13 @@ export default function App() {
   const [xItem,setXItem] = useState(["Willy the Goblin","Big Daddy","Father Christmas"]);
   const [yItem,setYItem] = useState(["the soup kitchen","Disneyland","the White House"]);
   const [zItem,setZItem] = useState(["spontaneously combusted","melted into a puddle on the sidewalk","turned into a slug and crawled away"]);
-  const [ukus,setUkus] = useState(false);
   const [name,setName] = useState("");
 
-  const [unit,setUnit] = useState(["ponds","stones"]);
-  const [temperature,setTemperature] = useState(["fahrenheit","celsius"]);
+  const [unit,setUnit] = useState("ponds","stones");
+  const [temperature,setTemperature] = useState("fahrenheit","celsius");
 
 
   let nameText = document.getElementById("target");
-  
-  
-
-  function radio(){
-    var checked=document.getElementById("us").checked;
-    if(checked){
-      setUkus(false);
-    }else{
-      setUkus(true);
-    }
-  }
-  
 
   function change(array,num){
     return array[num];
@@ -44,9 +31,16 @@ export default function App() {
     }
   }
 
-  function changeData(array){
-    var checked=ukus;
-    if(checked){
+  function changeData1(array,element){
+    if(element){
+      return array[0];
+    }else{
+      return array[1];
+    }
+  }
+
+  function changeData2(array,element){
+    if(element){
       return array[0];
     }else{
       return array[1];
@@ -60,8 +54,9 @@ export default function App() {
     setZItem(randomValueFromArray(zItem));
     var value=document.getElementById("target").value;
     setName(changeName(value));
-    setUnit(changeData(unit));
-    setTemperature(changeData(temperature));
+    var element=document.getElementByName("us");
+    setUnit(changeData1(unit,element.checked));
+    setTemperature(changeData2(temperature,element.checked));
   }
 
   return (
@@ -73,9 +68,9 @@ export default function App() {
         </div>
        <div>
           <label htmlFor="us">US</label>
-          <input id="d" type="radio"  name="country" value="us" onchange="radio()" checked />
+          <input id="d" type="radio"  name="country" value="us"  checked />
           <label htmlFor="uk">UK</label>
-          <input id="f" type="radio"  name="country" value="uk"  onchange="radio()" />
+          <input id="f" type="radio"  name="country" value="uk" />
         </div>
         <div>
           <button onClick={changeData}>Generate random story</button>
